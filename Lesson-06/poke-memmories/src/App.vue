@@ -1,5 +1,8 @@
 <template>
-  <main-screen v-if="statusMatch === 'default'" @onStart="onHandleBeforeStart($event)" />
+  <main-screen 
+  v-if="statusMatch === 'default'" 
+  @onStart="onHandleBeforeStart($event)" 
+  />
   <interact-screen v-if="statusMatch === 'match'" />
 </template>
 
