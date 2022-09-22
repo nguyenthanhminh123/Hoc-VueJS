@@ -1,4 +1,5 @@
 <template>
+  <h1>Hello Dom</h1>
   <base-nav />
   <router-view />
 </template>
@@ -9,6 +10,13 @@ export default {
   name: "App",
   components: {
     BaseNav: Nav,
+  },
+  created() {
+    console.log(document.querySelector("h1"));
+  },
+
+  mouted(){
+    console.log(document.querySelector("h1"));
   },
 };
 </script>
