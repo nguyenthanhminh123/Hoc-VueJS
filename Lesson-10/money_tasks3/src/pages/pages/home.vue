@@ -1,7 +1,6 @@
 <template>
     <h1>Homepage is here</h1>
-    <p> {{ firstname }} </p>
-    <p>{{car}}</p>
+    <input type="text" v-model="searchText">
     <button @click="onchangeSomething">Click me</button>
 </template>
 
@@ -14,21 +13,23 @@ export default {
             name: "Quan",
             something: "Minh"
         })
-        const car = reactive({
+        let car = reactive({
             price: 100000,
             name: "Mec"
-        })
+        });
 
         function onChangeSomething() {
-            console.log("running heree...");
-            console.log(sencondName);
-            car.price = 200000;
-            sencondName.value.name = "Hihi"
-            firstName.value= "Thanh Minh";
-            console.log(car);
+            sencondName.value = {
+                name: "Thanh minh",
+                something: "Sharing",
+            };
+            car = {
+                price: 200000,
+                name: "SOmething",
+            };
         }
 
-        return { firstName, onChangeSomething};
+        return { firstName, sencondName,  onChangeSomething};
     },
 };
 </script>
