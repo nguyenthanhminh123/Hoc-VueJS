@@ -1,35 +1,56 @@
 <template>
-    <h1>Homepage is here</h1>
-    <input type="text" v-model="searchText">
-    <button @click="onchangeSomething">Click me</button>
+    <h1>Overview page is here</h1>
+    <input type="text" v-model="searchText" />
+    <ul>
+        <li v-for="(customer, index) in customersFilled" :key="index">
+        {{customer}}
+        </li>
+    </ul>
+    <p>{{transactions}}</p>
 </template>
 
-<script> 
-import {ref} from "vue";
-export default {
-    setup () {
-        const firstName = ref ("Sky Albert")
-        const sencondName = ref ({
-            name: "Quan",
-            something: "Minh"
-        })
-        let car = reactive({
-            price: 100000,
-            name: "Mec"
-        });
+<script>
+    import { computed, ref, reactive, watch, watchEffect } from "vue";
+    import useTranSactions from "../uses/fetchTransactions";
+    export default {
+        props: {
+            theme: {
+                type: String,
+                required: false,
+                default: "light",
+            },
+        },
+        setup () {
+            const { transactions, fetchAll } = useTranSactions();
 
-        function onChangeSomething() {
-            sencondName.value = {
-                name: "Thanh minh",
-                something: "Sharing",
-            };
-            car = {
-                price: 200000,
-                name: "SOmething",
-            };
-        }
+            fetchAll();
 
-        return { firstName, sencondName,  onChangeSomething};
-    },
-};
+            const searchText = ref("");
+            const customers = reactive([
+                "Something",
+                "Thanh minh",
+                "Sky Oi",
+                "Hula",
+            ]);
+            const customersFilled = computed(()=> {
+                customers 
+                .map((customer)=> {
+                    customer = customer.toLowerCase();
+                    return customer;
+                })
+                .filter((customer) => customer.includes(searchText.value.toLowerCase()))
+            });
+
+            watch(searchText, (newValue, oldValue) => {
+                console.log(newValue, oldValue)
+            });
+            watchEffect(() => {
+                if (searchText.value) {
+                    console.log("run again");
+                }
+            });
+
+            return { searchText, customersFilled, transactions};
+        },
+    };
 </script>
