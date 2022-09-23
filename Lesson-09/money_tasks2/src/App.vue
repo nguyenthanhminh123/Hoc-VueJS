@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello Dom</h1>
+  <h1>Hello Domdd</h1>
   <base-nav />
   <router-view />
 </template>
